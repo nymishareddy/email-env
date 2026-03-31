@@ -27,3 +27,13 @@ def step(action: str):
 @app.get("/state")
 def state():
     return {"state": env.state()}
+
+def main():
+    return app
+
+
+if __name__ == "__main__":
+    main()
+
+
+
