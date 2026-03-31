@@ -2,7 +2,17 @@
 name = "email-env"
 version = "0.1.0"
 description = "Email management OpenEnv environment"
-authors = ["Nymisha Reddy Cheruku"]
+authors = ["Nymisha"]
+
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "pydantic",
+    "openenv-core>=0.2.0"
+]
+
+[project.scripts]
+server = "app:app"
 
 [tool.openenv]
 entrypoint = "app:app"
