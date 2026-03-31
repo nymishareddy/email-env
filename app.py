@@ -4,16 +4,9 @@ from env import EmailEnv
 app = FastAPI()
 env = EmailEnv()
 
-
-@app.get("/")
-def home():
-    return {"message": "Email Env Running"}
-
-
 @app.post("/reset")
 def reset():
     return env.reset()
-
 
 @app.post("/step")
 def step(action: str):
@@ -24,7 +17,6 @@ def step(action: str):
         "done": done,
         "info": info
     }
-
 
 @app.get("/state")
 def state():
