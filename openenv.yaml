@@ -1,0 +1,25 @@
+id: email-env
+name: Email Management Environment
+description: AI agent learns to classify and respond to emails
+
+observation_space:
+  type: list
+  description: List of emails with text and labels
+
+action_space:
+  type: string
+  description: Agent outputs classification or reply
+
+reward:
+  type: float
+  description: Reward based on correctness of action
+
+tasks:
+  - name: easy
+    description: classify email correctly
+
+  - name: medium
+    description: generate proper reply
+
+  - name: hard
+    description: handle multiple emails efficiently
