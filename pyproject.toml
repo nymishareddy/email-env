@@ -1,0 +1,8 @@
+[project]
+name = "email-env"
+version = "0.1.0"
+description = "Email management OpenEnv environment"
+authors = ["Nymisha Reddy Cheruku"]
+
+[tool.openenv]
+entrypoint = "app:app"
