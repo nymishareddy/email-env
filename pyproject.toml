@@ -1,8 +1,7 @@
 [project]
 name = "email-env"
 version = "0.1.0"
-description = "Email management OpenEnv environment"
-authors = ["Nymisha"]
+description = "Email environment"
 
 dependencies = [
     "fastapi",
@@ -12,7 +11,7 @@ dependencies = [
 ]
 
 [project.scripts]
-server = "app:app"
+server = "server.app:main"
 
 [tool.openenv]
-entrypoint = "app:app"
+entrypoint = "server.app:main"
