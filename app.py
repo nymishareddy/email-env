@@ -2,17 +2,18 @@ from fastapi import FastAPI
 from env import EmailEnv
 
 app = FastAPI()
-
 env = EmailEnv()
+
 
 @app.get("/")
 def home():
     return {"message": "Email Env Running"}
 
+
 @app.post("/reset")
 def reset():
-    obs = env.reset()
-    return {"observation": obs}
+    return env.reset()
+
 
 @app.post("/step")
 def step(action: str):
@@ -24,6 +25,7 @@ def step(action: str):
         "info": info
     }
 
+
 @app.get("/state")
 def state():
-    return {"state": env.state()}
+    return env.state()
