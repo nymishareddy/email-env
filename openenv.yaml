@@ -17,9 +17,12 @@ reward:
 tasks:
   - name: easy
     description: classify email correctly
+    max_steps: 3
 
   - name: medium
     description: generate proper reply
+    max_steps: 3
 
   - name: hard
     description: handle multiple emails efficiently
+    max_steps: 3
