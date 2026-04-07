@@ -1,36 +1,24 @@
 id: email-env
 name: Email Management Environment
-description: >
-  AI agent classifies and responds to emails sequentially.
-  Rewards based on classification correctness and reply relevance.
-  Final score is normalized between 0.0 and 1.0.
+description: AI agent classifies and responds to emails sequentially.
 
 entry_point: env:EmailEnv
 
 observation_space:
   type: dict
-  description: >
-    Current email dict with keys:
-    text (str) and label (str: important or spam)
+  description: Current email with text and label fields
 
 action_space:
   type: string
-  description: >
-    Agent outputs a classification string (important or spam),
-    or a reply text containing attend for meeting-related emails.
+  description: Classification (important or spam) or reply text
 
 reward:
   type: float
-  description: >
-    Per step: +1.0 correct classification, +0.8 meeting reply with attend,
-    -0.5 otherwise. Final step returns total_reward divided by num_emails,
-    clamped to 0.0 and 1.0.
+  description: +1.0 correct, +0.8 meeting reply, -0.5 wrong. Normalized 0.0 to 1.0.
 
 tasks:
   - name: easy
-    description: >
-      Classify all 3 emails correctly as important or spam.
-      Minimum passing score is 0.5 which means at least 2 correct.
+    description: Classify emails as important or spam correctly.
     max_steps: 3
     grader:
       type: reward_threshold
@@ -38,9 +26,7 @@ tasks:
       normalize: true
 
   - name: medium
-    description: >
-      Classify emails correctly and reply to meeting email with attend.
-      Targets a mixed reward of classification and reply correctness.
+    description: Classify and reply to meeting emails with attend keyword.
     max_steps: 3
     grader:
       type: reward_threshold
@@ -48,9 +34,7 @@ tasks:
       normalize: true
 
   - name: hard
-    description: >
-      Achieve near perfect score across all 3 emails.
-      Agent must classify and handle meeting reply perfectly.
+    description: Achieve near perfect score across all emails.
     max_steps: 3
     grader:
       type: reward_threshold
