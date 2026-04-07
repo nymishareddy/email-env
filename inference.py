@@ -1,7 +1,6 @@
 from env import EmailEnv
-import time
 
-#Simple agent
+# Simple agent
 def simple_agent(email_text):
     if "lottery" in email_text.lower():
         return "spam"
@@ -13,34 +12,33 @@ def simple_agent(email_text):
         return "important"
 
 
-#MAIN EXECUTION
+# MAIN EXECUTION
 def main():
-    env = EmailEnv()
-    env.reset()
+    try:
+        env = EmailEnv()
+        env.reset()
 
-    done = False
-    total_reward = 0
+        done = False
+        total_reward = 0
 
-    while not done:
-        current_email = env.emails[env.current_index]["text"]
+        while not done:
+            
+            if env.current_index >= len(env.emails):
+                break
 
-        action = simple_agent(current_email)
-        print(f"\nAgent action: {action}")
+            current_email = env.emails[env.current_index]["text"]
 
-        _, reward, done, _ = env.step(action)
-        total_reward += reward
+            action = simple_agent(current_email)
+            print(f"Agent action: {action}")
 
-    print("\nFinal Score:", total_reward)
+            _, reward, done, _ = env.step(action)
+            total_reward += reward
+
+        print("Final Score:", total_reward)
+
+    except Exception as e:
+        print("Error:", str(e))
 
 
 if __name__ == "__main__":
-    print("Starting Email Environment...")
-
     main()
-
-    print("Environment ran successfully...")
-
-    import time
-    while True:
-        print("App alive...")
-        time.sleep(30)
