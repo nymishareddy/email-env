@@ -1,36 +1,34 @@
 id: email-env
 name: Email Management Environment
 description: AI agent learns to classify and respond to emails
+
 observation_space:
   type: list
   description: List of emails with text and labels
+
 action_space:
   type: string
   description: Agent outputs classification or reply
+
 reward:
   type: float
   description: Reward based on correctness of action
+
 tasks:
   - name: easy
     description: classify email correctly
     max_steps: 3
     grader:
-      type: exact_match
-      field: classification
-      expected: "spam"
+      type: reward
 
   - name: medium
     description: generate proper reply
     max_steps: 3
     grader:
-      type: llm_judge
-      prompt: "Does this reply professionally address the email? Reply YES or NO."
-      pass_threshold: 0.7
+      type: reward
 
   - name: hard
     description: handle multiple emails efficiently
     max_steps: 3
     grader:
-      type: exact_match
-      field: classifications
-      expected: ["spam", "important", "newsletter"]
+      type: reward
