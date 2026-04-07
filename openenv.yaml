@@ -1,37 +1,58 @@
 id: email-env
 name: Email Management Environment
-description: AI agent learns to classify and respond to emails
+description: >
+  AI agent classifies and responds to emails sequentially.
+  Rewards based on classification correctness and reply relevance.
+  Final score is normalized between 0.0 and 1.0.
+
+entry_point: env:EmailEnv
 
 observation_space:
-  type: list
-  description: List of emails with text and labels
+  type: dict
+  description: >
+    Current email dict with keys:
+    text (str) and label (str: important or spam)
 
 action_space:
   type: string
-  description: Agent outputs classification or reply
+  description: >
+    Agent outputs a classification string (important or spam),
+    or a reply text containing attend for meeting-related emails.
 
 reward:
   type: float
-  description: Reward based on correctness of action
+  description: >
+    Per step: +1.0 correct classification, +0.8 meeting reply with attend,
+    -0.5 otherwise. Final step returns total_reward divided by num_emails,
+    clamped to 0.0 and 1.0.
 
 tasks:
   - name: easy
-    description: classify email correctly
+    description: >
+      Classify all 3 emails correctly as important or spam.
+      Minimum passing score is 0.5 which means at least 2 correct.
     max_steps: 3
     grader:
-      type: scalar
-      source: reward
+      type: reward_threshold
+      threshold: 0.5
+      normalize: true
 
   - name: medium
-    description: generate proper reply
+    description: >
+      Classify emails correctly and reply to meeting email with attend.
+      Targets a mixed reward of classification and reply correctness.
     max_steps: 3
     grader:
-      type: scalar
-      source: reward
+      type: reward_threshold
+      threshold: 0.7
+      normalize: true
 
   - name: hard
-    description: handle multiple emails efficiently
+    description: >
+      Achieve near perfect score across all 3 emails.
+      Agent must classify and handle meeting reply perfectly.
     max_steps: 3
     grader:
-      type: scalar
-      source: reward
+      type: reward_threshold
+      threshold: 0.9
+      normalize: true
