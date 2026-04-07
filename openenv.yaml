@@ -19,16 +19,19 @@ tasks:
     description: classify email correctly
     max_steps: 3
     grader:
-      type: reward
+      type: scalar
+      source: reward
 
   - name: medium
     description: generate proper reply
     max_steps: 3
     grader:
-      type: reward
+      type: scalar
+      source: reward
 
   - name: hard
     description: handle multiple emails efficiently
     max_steps: 3
     grader:
-      type: reward
+      type: scalar
+      source: reward
